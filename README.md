@@ -1,24 +1,35 @@
-# True Layout Twin
+# Roupão da Fé — Uma história pode recomeçar
 
-Implement exactly the screenshot and nothing else
+Site institucional do **Projeto Roupão da Fé**: iniciativa missionária de acolhimento, esperança e
+reconexão espiritual.
 
-This project was built with [Lovable](https://lovable.dev).
+## Páginas
 
-## Build with Lovable
+- `/` — página inicial (hero, história, símbolo, como participar, histórias, doar, contato)
+- `/como-participar` — manual de orientação completo (introdução, justificativa, passo a passo em
+  17 etapas) — abre em nova aba pelo botão “Quero saber como participar”
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/972c7f9b-11ad-41cc-9125-2489f892ee1f).
+## Stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+TanStack Start + React 19 + Vite + Tailwind CSS 4, animações com Framer Motion + Lenis.
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Desenvolvimento
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
+git clone https://github.com/suitehub/roupaodafe.git
+cd roupaodafe
 npm i
 npm run dev
 ```
+
+Outros comandos: `npm run build` (produção), `npm run lint`, `npm run test`.
+
+## Deploy
+
+Deploy contínuo na Vercel a partir da branch `main` (preset TanStack Start, sem configuração extra).
+
+---
+
+Este projeto foi iniciado com [Lovable](https://lovable.dev) — continue desenvolvendo no
+[editor Lovable](https://lovable.dev/projects/972c7f9b-11ad-41cc-9125-2489f892ee1f); as alterações
+sincronizam com este repositório.
