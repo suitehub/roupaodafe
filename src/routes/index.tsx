@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Eyebrow, Logo, SectionBg } from "@/components/site-chrome";
+import { withBase } from "@/lib/base";
 import { StoriesCarousel } from "@/components/stories-carousel";
 import {
   EASE,
@@ -277,7 +278,7 @@ function Index() {
             </ScrollReveal>
             <ScrollReveal>
               <motion.a
-                href="/como-participar"
+                href={withBase("/como-participar")}
                 target="_blank"
                 rel="noreferrer"
                 whileHover={{ scale: 1.04 }}
@@ -452,7 +453,7 @@ function Index() {
                     Falar com a equipe <ArrowRight size={16} />
                   </motion.a>
                   <motion.a
-                    href="/como-participar"
+                    href={withBase("/como-participar")}
                     target="_blank"
                     rel="noreferrer"
                     whileHover={{ scale: 1.04 }}

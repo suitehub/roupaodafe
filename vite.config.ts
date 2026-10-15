@@ -12,4 +12,6 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Base do GitHub Pages (`GH_PAGES_BASE=/roupaodafe/`). Ausente = raiz (dev, Vercel, Lovable).
+  vite: { base: process.env["GH_PAGES_BASE"] ?? "/" },
 });

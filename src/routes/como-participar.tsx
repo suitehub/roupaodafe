@@ -12,6 +12,7 @@ import {
   SplitTitle,
 } from "@/components/scroll-effects";
 import { Eyebrow, Logo } from "@/components/site-chrome";
+import { withBase } from "@/lib/base";
 import fundo2 from "@/assets/fundo2.jpg";
 
 export const Route = createFileRoute("/como-participar")({
@@ -132,9 +133,9 @@ function PageHeader() {
   return (
     <ScrollHeader className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Logo href="/" />
+        <Logo href={withBase("/")} />
         <motion.a
-          href="/"
+          href={withBase("/")}
           whileHover={{ x: -3 }}
           className="inline-flex items-center gap-2 text-[11px] font-bold text-foreground/70 hover:text-primary"
         >
@@ -346,7 +347,7 @@ function ComoParticipar() {
                 <Phone size={15} /> (11) 98761-2710
               </motion.a>
               <motion.a
-                href="/"
+                href={withBase("/")}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ duration: 0.25, ease: EASE }}
@@ -361,10 +362,10 @@ function ComoParticipar() {
         <footer className="mx-auto flex w-full max-w-6xl flex-col justify-end px-6 py-8">
           <ScrollReveal y={12}>
             <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-              <Logo href="/" />
+              <Logo href={withBase("/")} />
               <p>Manual de orientação — Projeto Roupão da Fé.</p>
               <a
-                href="/"
+                href={withBase("/")}
                 className="inline-flex items-center gap-2 font-semibold hover:text-primary"
               >
                 Voltar ao início <ArrowRight size={13} />
