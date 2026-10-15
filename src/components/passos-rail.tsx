@@ -46,6 +46,7 @@ function columnsFor(num: string): DigitCol[] {
  */
 export function PassosRail({ steps }: { steps: PassosRailStep[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
   const beadRef = useRef<HTMLSpanElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -101,6 +102,13 @@ export function PassosRail({ steps }: { steps: PassosRailStep[] }) {
           const r = (num ?? s.el).getBoundingClientRect();
           return r.top - cbox.top + r.height / 2;
         });
+        // Trilho com a MESMA geometria da viagem da conta: do centro do
+        // primeiro número ao centro do último. Linha e conta nunca descolam.
+        const first = anchors[0] ?? 0;
+        const last = anchors[anchors.length - 1] ?? first;
+        if (railRef.current) {
+          gsap.set(railRef.current, { top: first, height: Math.max(1, last - first) });
+        }
       };
 
       const setTier = (s: State, opacity: number) => {
@@ -166,9 +174,8 @@ export function PassosRail({ steps }: { steps: PassosRailStep[] }) {
           s.tier = 1;
           s.rolled = true;
         });
-        const first = anchors[0] ?? 0;
         const last = anchors[anchors.length - 1] ?? 0;
-        gsap.set(bead, { y: last - first });
+        gsap.set(bead, { y: last });
         gsap.set(fill, { scaleY: 1 });
       };
 
@@ -232,8 +239,8 @@ export function PassosRail({ steps }: { steps: PassosRailStep[] }) {
 
   return (
     <div ref={containerRef} className="relative mt-12">
-      {/* trilho */}
-      <div aria-hidden className="absolute top-4 bottom-4 left-7 w-[3px] md:left-8">
+      {/* trilho (geometria exata via JS: do primeiro ao último número) */}
+      <div ref={railRef} aria-hidden className="absolute top-4 bottom-4 left-7 w-[3px] md:left-8">
         <div className="pr-rail-ghost" />
         <div
           ref={fillRef}
@@ -263,7 +270,7 @@ export function PassosRail({ steps }: { steps: PassosRailStep[] }) {
                 <span
                   data-step-num
                   aria-hidden="true"
-                  className="pr-num absolute top-0 left-0 grid h-14 w-14 place-items-center font-serif text-[26px] text-primary md:h-16 md:w-16 md:text-3xl"
+                  className="pr-num absolute top-0 left-0 flex h-14 w-14 items-center justify-center font-serif text-[26px] text-primary md:h-16 md:w-16 md:text-3xl"
                 >
                   {columns[i]?.map((col, k) =>
                     col.glyphs ? (
