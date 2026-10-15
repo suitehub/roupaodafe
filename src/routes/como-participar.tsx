@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, BookOpen, Flag, HeartHandshake, Phone, Quote } from "lucide-react";
 import {
   EASE,
@@ -154,6 +155,8 @@ function ComoParticipar() {
         aria-hidden
         className="pointer-events-none absolute inset-0 h-full w-full object-fill"
       />
+      {/* Véu branco (20%) sobre o fundo, só nesta página */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-white/20" />
       <div className="relative z-10">
         <PageHeader />
 
@@ -306,39 +309,7 @@ function ComoParticipar() {
               missionário.
             </p>
           </ScrollReveal>
-          <ScrollStagger className="mt-12 space-y-5">
-            {STEPS.map((step) => (
-              <ScrollStaggerItem key={step.n} index={step.n - 1} total={STEPS.length} y={36}>
-                <motion.article
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                  className="flex gap-5 rounded-2xl border border-border bg-white/80 p-6 shadow-[0_10px_35px_-20px_rgba(120,20,20,0.35)] md:p-7"
-                >
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary font-serif text-lg text-primary-foreground">
-                    {String(step.n).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-serif text-xl">{step.title}</h3>
-                    <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-                      {step.text}
-                    </p>
-                    {step.tags && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {step.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full bg-primary/[0.07] px-3 py-1 text-[10px] font-bold tracking-wide text-primary uppercase"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.article>
-              </ScrollStaggerItem>
-            ))}
-          </ScrollStagger>
+          <StepsTimeline />
 
           <ScrollReveal>
             <div className="mt-10 rounded-2xl bg-primary p-8 text-primary-foreground md:p-10">
@@ -403,5 +374,81 @@ function ComoParticipar() {
         </footer>
       </div>
     </main>
+  );
+}
+
+/*
+ * Linha do tempo das 17 etapas: trilho com preenchimento ligado ao scroll
+ * + cartões que entram em cascata. Só transform/opacity (leve).
+ */
+function StepsTimeline() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.75", "end 0.55"],
+  });
+  const fill = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  return (
+    <div ref={ref} className="relative mt-12">
+      {/* trilho */}
+      <div aria-hidden className="absolute top-3 bottom-3 left-[27px] w-[3px] md:left-[31px]">
+        <div className="absolute inset-0 rounded-full bg-primary/15" />
+        <motion.div
+          style={{ scaleY: fill }}
+          className="absolute inset-0 origin-top rounded-full bg-primary"
+        />
+      </div>
+
+      <ScrollStagger className="space-y-5">
+        {STEPS.map((step) => {
+          const num = String(step.n).padStart(2, "0");
+          return (
+            <ScrollStaggerItem key={step.n} index={step.n - 1} total={STEPS.length} y={40}>
+              <div className="relative pl-[68px] md:pl-[88px]">
+                <motion.span
+                  whileHover={{ scale: 1.1, rotate: -6 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                  className="absolute top-0 left-0 grid h-14 w-14 place-items-center rounded-full border-2 border-primary/20 bg-white font-serif text-lg text-primary shadow-md md:h-16 md:w-16"
+                >
+                  {num}
+                </motion.span>
+                <motion.article
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                  className="relative overflow-hidden rounded-3xl border border-border bg-white/85 p-6 shadow-[0_15px_45px_-25px_rgba(120,20,20,0.45)] backdrop-blur-sm md:p-7"
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute -top-7 -right-1 font-serif text-[6.5rem] leading-none text-primary/[0.07] select-none"
+                  >
+                    {num}
+                  </span>
+                  <p className="text-[10px] font-bold tracking-[0.25em] text-primary uppercase">
+                    Etapa {num} de 17
+                  </p>
+                  <h3 className="mt-1 font-serif text-2xl">{step.title}</h3>
+                  <p className="mt-2 max-w-xl text-[13px] leading-relaxed text-muted-foreground">
+                    {step.text}
+                  </p>
+                  {step.tags && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {step.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-primary/[0.07] px-3 py-1 text-[10px] font-bold tracking-wide text-primary uppercase"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </motion.article>
+              </div>
+            </ScrollStaggerItem>
+          );
+        })}
+      </ScrollStagger>
+    </div>
   );
 }
