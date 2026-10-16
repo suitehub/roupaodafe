@@ -55,7 +55,7 @@ function LoadWord({
       <motion.span
         className={cn(
           "inline-block origin-bottom-left",
-          em && "italic text-primary [.on-red_&]:text-primary-foreground",
+          em && "italic text-accent-italic [.on-red_&]:text-primary-foreground",
         )}
         initial={{ y: "115%", rotate: 4, opacity: 0 }}
         animate={{ y: "0%", rotate: 0, opacity: 1 }}
@@ -91,7 +91,7 @@ function ScrollWord({
       <motion.span
         className={cn(
           "inline-block origin-bottom-left",
-          em && "italic text-primary [.on-red_&]:text-primary-foreground",
+          em && "italic text-accent-italic [.on-red_&]:text-primary-foreground",
         )}
         style={{ y, rotate, opacity }}
       >

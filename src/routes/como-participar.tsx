@@ -10,7 +10,6 @@ import {
 } from "@/components/scroll-effects";
 import { Eyebrow, Logo } from "@/components/site-chrome";
 import { withBase } from "@/lib/base";
-import fundo2 from "@/assets/fundo2.jpg";
 
 export const Route = createFileRoute("/como-participar")({
   head: () => ({
@@ -146,15 +145,6 @@ function PageHeader() {
 function ComoParticipar() {
   return (
     <main className="relative overflow-hidden bg-[#faf7f2]">
-      {/* Fundo claro com ondas e traços vermelhos em tela cheia */}
-      <img
-        src={fundo2}
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center md:object-fill"
-      />
-      {/* Véu branco (20%) sobre o fundo, só nesta página */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-white/20" />
       <div className="relative z-10">
         <PageHeader />
 

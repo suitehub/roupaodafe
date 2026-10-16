@@ -7,6 +7,10 @@ import {
   Heart,
   Sprout,
   Sunrise,
+  Users,
+  MessagesSquare,
+  Gift,
+  HeartHandshake,
   Copy,
   Instagram,
   Youtube,
@@ -64,6 +68,13 @@ const SYMBOLS: Array<[LucideIcon, string, string]> = [
     "Recomeço",
     "Um símbolo de uma nova etapa da caminhada espiritual, respeitando o tempo de cada um.",
   ],
+];
+
+const STEPS: Array<[LucideIcon, string, string]> = [
+  [Users, "Escolha alguém", "Ore e pense em uma pessoa que se afastou da igreja."],
+  [MessagesSquare, "Aproxime-se com amor", "Escute, converse e demonstre interesse genuíno."],
+  [Gift, "Entregue o roupão", "Ofereça como símbolo de esperança e convite para uma nova etapa."],
+  [HeartHandshake, "Continue caminhando junto", "Mantenha o contato e ofereça apoio espiritual."],
 ];
 
 const AMOUNTS = ["R$ 25", "R$ 50", "R$ 100", "Outro valor"];
@@ -143,7 +154,7 @@ function Index() {
             <LoadReveal delay={0.35}>
               <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground">
                 Um gesto de amor pode abrir caminho para o reencontro com a fé. O Roupão da Fé é uma
-                iniciativa missionária de acolhimento, esperança e reconexão espiritual.
+                iniciativa missionária de acolhimento, esperança e renovação espiritual.
               </p>
             </LoadReveal>
             <LoadReveal delay={0.45}>
@@ -257,38 +268,55 @@ function Index() {
         </section>
 
         {/* 03 Participar */}
-        <section
-          id="participar"
-          className="on-red relative flex min-h-[51vw] items-center text-primary-foreground"
-        >
+        <section id="participar" className="on-red relative bg-[#06293C] text-primary-foreground">
           <SectionBg slice="s03" />
-          <div className="mx-auto w-full max-w-4xl px-6 py-20 text-center">
-            <Eyebrow n="03" light center>
-              Como participar
-            </Eyebrow>
-            <SplitTitle
-              className="text-5xl text-primary-foreground md:text-6xl"
-              segments={[{ t: "Fazer parte\ncomeça com\n" }, { t: "um gesto.", em: true }]}
-            />
-            <ScrollReveal>
-              <p className="mx-auto mt-7 max-w-lg text-[15px] leading-relaxed text-primary-foreground/75">
-                O manual completo de orientação — introdução, justificativa e o passo a passo em 17
-                etapas — está disponível em uma página dedicada.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal>
-              <motion.a
-                href={withBase("/como-participar")}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                transition={{ duration: 0.25, ease: EASE }}
-                className="mt-9 inline-flex items-center gap-2 rounded-md bg-background px-6 py-3.5 text-xs font-bold text-primary"
-              >
-                Quero saber como participar <ArrowRight size={14} />
-              </motion.a>
-            </ScrollReveal>
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-[0.9fr_2fr]">
+            <div>
+              <Eyebrow n="03" light>
+                Como participar
+              </Eyebrow>
+              <SplitTitle
+                className="text-5xl text-primary-foreground md:text-6xl"
+                segments={[{ t: "Fazer parte\ncomeça com\n" }, { t: "um gesto.", em: true }]}
+              />
+              <ScrollReveal>
+                <motion.a
+                  href={withBase("/como-participar")}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ duration: 0.25, ease: EASE }}
+                  className="mt-9 inline-flex items-center gap-2 rounded-md bg-background px-6 py-3.5 text-xs font-bold text-primary"
+                >
+                  Quero saber como participar <ArrowRight size={14} />
+                </motion.a>
+              </ScrollReveal>
+            </div>
+            <ScrollStagger className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
+              <ScrollScale
+                axis="x"
+                className="absolute inset-x-0 top-5 hidden h-px origin-left bg-primary-foreground/40 md:block"
+              />
+              {STEPS.map(([Icon, t, d], i) => (
+                <ScrollStaggerItem key={t} index={i} total={STEPS.length} className="relative">
+                  <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3, ease: EASE }}>
+                    <motion.span
+                      whileHover={{ scale: 1.12, rotate: 8 }}
+                      transition={{ duration: 0.3, ease: EASE }}
+                      className="grid h-9 w-9 place-items-center rounded-full border border-primary-foreground/60 bg-white/10 text-[11px] font-semibold backdrop-blur-sm"
+                    >
+                      0{i + 1}
+                    </motion.span>
+                    <Icon className="mt-5 h-5 w-5" strokeWidth={1.5} />
+                    <h3 className="mt-3 font-sans text-[13px] font-bold">{t}</h3>
+                    <p className="mt-1.5 text-[11px] leading-relaxed text-primary-foreground/75">
+                      {d}
+                    </p>
+                  </motion.div>
+                </ScrollStaggerItem>
+              ))}
+            </ScrollStagger>
           </div>
         </section>
 
@@ -298,18 +326,16 @@ function Index() {
           className="relative flex min-h-[58vw] w-full flex-col justify-center"
         >
           <SectionBg slice="s04" />
-          <div className="mx-auto max-w-3xl px-6 pt-24 pb-12 text-center">
-            <Eyebrow n="04" center>
-              Histórias que inspiram
-            </Eyebrow>
+          <div className="mx-auto w-full max-w-6xl px-6 pt-24 pb-12">
+            <Eyebrow n="04">Histórias que inspiram</Eyebrow>
             <SplitTitle
-              className="text-center text-5xl md:text-6xl"
+              className="max-w-xl text-5xl md:text-6xl"
               segments={[{ t: "Cada recomeço tem sua " }, { t: "própria história.", em: true }]}
             />
             <ScrollReveal>
-              <p className="mx-auto mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
+              <p className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
                 São pessoas reais, experiências verdadeiras e testemunhos de esperança. Histórias de
-                quem decidiu retornar e reencontrar seu caminho com Cristo.
+                quem decidiu recomeçar e reencontrar seu caminho com Cristo.
               </p>
             </ScrollReveal>
             <ScrollReveal>
@@ -470,7 +496,6 @@ function Index() {
         </section>
 
         <footer className="relative mx-auto flex min-h-[20vw] w-full max-w-6xl flex-col justify-end px-6 py-8">
-          <SectionBg slice="footer" />
           <ScrollReveal y={20}>
             <div className="flex flex-wrap items-center justify-between gap-6 border-b border-border pb-8">
               <Logo />
@@ -504,7 +529,7 @@ function Index() {
           </ScrollReveal>
           <ScrollReveal y={12}>
             <div className="flex flex-wrap justify-between gap-4 pt-6 text-xs text-muted-foreground">
-              <p>Uma iniciativa de acolhimento, esperança e reconexão espiritual.</p>
+              <p>Uma iniciativa de acolhimento, esperança e renovação espiritual.</p>
               <p>Política de Privacidade &nbsp;|&nbsp; © 2025 Roupão da Fé</p>
             </div>
           </ScrollReveal>

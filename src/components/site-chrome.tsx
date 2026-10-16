@@ -3,34 +3,35 @@ import { EASE } from "./scroll-effects";
 import logoPng from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
 
-const layerModules = import.meta.glob<string>("../assets/fundo-camada-*.jpg", {
+const sliceModules = import.meta.glob<string>("../assets/bg-*.jpg", {
   eager: true,
   query: "?url",
   import: "default",
 });
 
 const LAYERS: Record<string, string> = {};
-for (const [path, url] of Object.entries(layerModules)) {
-  const m = path.match(/fundo-camada-(\d+)\.jpg$/);
+for (const [path, url] of Object.entries(sliceModules)) {
+  const m = path.match(/bg-(.+)\.jpg$/);
   const key = m?.[1];
   if (key) LAYERS[key] = url;
 }
 
 /* Camada do fundo → seção (ordem de cima para baixo, definida pelo design):
- * 2 robes = hero · 3 mãos = história · 4 onda branca = símbolo ·
- * 5 faixa vermelha = participar · 6 branco = histórias + doar ·
- * 7 pôr-do-sol = contato · 8 branco = rodapé */
-export type BgLayer = "hero" | "s01" | "s02" | "s03" | "s04" | "s05" | "s06" | "footer";
+ * hero · historia · simbolo · onda (faixa azul-marinho) ·
+ * transicao (04 + 05) · contato. Rodapé fica no creme.
+ * A peça nunca é redimensionada: largura cheia, altura natural, fundida
+ * na base creme. `cover` = estica até cobrir (só para a onda escura,
+ * onde a distorção é invisível e o texto branco precisa de fundo total). */
+export type BgLayer = "hero" | "s01" | "s02" | "s03" | "s04" | "s05" | "s06";
 
 const LAYER_FILE: Record<BgLayer, string> = {
-  hero: "2",
-  s01: "3",
-  s02: "4",
-  s03: "5",
-  s04: "6",
-  s05: "6",
-  s06: "7",
-  footer: "8",
+  hero: "hero",
+  s01: "historia",
+  s02: "simbolo",
+  s03: "onda",
+  s04: "transicao",
+  s05: "transicao",
+  s06: "contato",
 };
 
 /*
@@ -53,17 +54,13 @@ export function Logo({ href = "#inicio" }: { href?: string }) {
   return (
     <motion.a
       href={href}
-      className="flex items-center gap-2.5"
+      className="flex items-center"
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.3, ease: EASE }}
+      aria-label="Roupão da Fé — início"
     >
-      <img src={logoPng} alt="Roupão da Fé" className="h-10 w-auto object-contain" />
-      <span className="text-[13px] font-bold leading-[1.1] tracking-[0.08em]">
-        ROUPÃO
-        <br />
-        DA FÉ
-      </span>
+      <img src={logoPng} alt="Roupão da Fé" className="h-11 w-auto object-contain" />
     </motion.a>
   );
 }
