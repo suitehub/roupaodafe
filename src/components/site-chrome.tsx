@@ -35,17 +35,15 @@ const LAYER_FILE: Record<BgLayer, string> = {
 };
 
 /*
- * Faixa do fundo colada na seção (vale para qualquer altura de conteúdo,
- * desktop e celular). Desktop: object-fill como no original.
- * Celular: object-cover (recorta as laterais em vez de achatar).
- * `-z-10` mantém a imagem sempre atrás do conteúdo.
+ * Faixa do fundo no topo da seção, tamanho exato e sem alterar proporções
+ * (w-full h-auto, uma embaixo da outra). `-z-10` mantém atrás do conteúdo.
  */
 export function SectionBg({ slice }: { slice: BgLayer }) {
   const src = LAYERS[LAYER_FILE[slice]];
   if (!src) return null;
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-      <img src={src} alt="" className="h-full w-full object-cover object-center md:object-fill" />
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10">
+      <img src={src} alt="" className="h-auto w-full" />
     </div>
   );
 }

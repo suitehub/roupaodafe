@@ -7,10 +7,6 @@ import {
   Heart,
   Sprout,
   Sunrise,
-  Users,
-  MessagesSquare,
-  Gift,
-  HeartHandshake,
   Copy,
   Instagram,
   Youtube,
@@ -68,13 +64,6 @@ const SYMBOLS: Array<[LucideIcon, string, string]> = [
     "Recomeço",
     "Um símbolo de uma nova etapa da caminhada espiritual, respeitando o tempo de cada um.",
   ],
-];
-
-const STEPS: Array<[LucideIcon, string, string]> = [
-  [Users, "Escolha alguém", "Ore e pense em uma pessoa que se afastou da igreja."],
-  [MessagesSquare, "Aproxime-se com amor", "Escute, converse e demonstre interesse genuíno."],
-  [Gift, "Entregue o roupão", "Ofereça como símbolo de esperança e convite para uma nova etapa."],
-  [HeartHandshake, "Continue caminhando junto", "Mantenha o contato e ofereça apoio espiritual."],
 ];
 
 const AMOUNTS = ["R$ 25", "R$ 50", "R$ 100", "Outro valor"];
@@ -137,11 +126,11 @@ function Index() {
         </ScrollHeader>
 
         {/* Hero */}
-        <section id="inicio" ref={heroRef} className="relative min-h-[68vw]">
+        <section id="inicio" ref={heroRef} className="relative min-h-[45vw]">
           <SectionBg slice="hero" />
           <motion.div
             style={{ y: heroY, opacity: heroOpacity }}
-            className="relative mx-auto max-w-6xl px-6 pt-40 pb-16 md:pt-44"
+            className="relative mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-36"
           >
             <Eyebrow>Um convite ao recomeço</Eyebrow>
             <SplitTitle
@@ -196,9 +185,9 @@ function Index() {
         </section>
 
         {/* 01 História */}
-        <section id="projeto" className="relative min-h-[44vw]">
+        <section id="projeto" className="relative min-h-[45vw]">
           <SectionBg slice="s01" />
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pt-64 pb-20 md:grid-cols-[1fr_1fr]">
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pt-24 pb-20 md:grid-cols-[1fr_1fr]">
             <ParallaxBox distance={36}>
               <Eyebrow n="01">A história</Eyebrow>
               <SplitTitle
@@ -233,9 +222,9 @@ function Index() {
         </section>
 
         {/* 02 Símbolo */}
-        <section className="relative min-h-[51vw]">
+        <section className="relative min-h-[45vw]">
           <SectionBg slice="s02" />
-          <div className="mx-auto max-w-6xl px-6 pt-64 pb-16">
+          <div className="mx-auto max-w-6xl px-6 pt-16 pb-16">
             <Eyebrow n="02">Um símbolo. Uma nova possibilidade.</Eyebrow>
             <SplitTitle
               className="max-w-2xl text-5xl md:text-6xl"
@@ -244,7 +233,7 @@ function Index() {
                 { t: "esperança.", em: true },
               ]}
             />
-            <ScrollStagger className="mt-44 grid gap-12 md:grid-cols-3">
+            <ScrollStagger className="mt-12 grid gap-12 md:grid-cols-3">
               {SYMBOLS.map(([Icon, t, d], i) => (
                 <ScrollStaggerItem key={t} index={i} total={SYMBOLS.length}>
                   <motion.div
@@ -268,55 +257,38 @@ function Index() {
         </section>
 
         {/* 03 Participar */}
-        <section id="participar" className="on-red relative bg-[#06293C] text-primary-foreground">
+        <section
+          id="participar"
+          className="on-red relative flex min-h-[45vw] items-center bg-[#7C0B05] text-primary-foreground"
+        >
           <SectionBg slice="s03" />
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-[0.9fr_2fr]">
-            <div>
-              <Eyebrow n="03" light>
-                Como participar
-              </Eyebrow>
-              <SplitTitle
-                className="text-5xl text-primary-foreground md:text-6xl"
-                segments={[{ t: "Fazer parte\ncomeça com\n" }, { t: "um gesto.", em: true }]}
-              />
-              <ScrollReveal>
-                <motion.a
-                  href={withBase("/como-participar")}
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
-                  transition={{ duration: 0.25, ease: EASE }}
-                  className="mt-9 inline-flex items-center gap-2 rounded-md bg-background px-6 py-3.5 text-xs font-bold text-primary"
-                >
-                  Quero saber como participar <ArrowRight size={14} />
-                </motion.a>
-              </ScrollReveal>
-            </div>
-            <ScrollStagger className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
-              <ScrollScale
-                axis="x"
-                className="absolute inset-x-0 top-5 hidden h-px origin-left bg-primary-foreground/40 md:block"
-              />
-              {STEPS.map(([Icon, t, d], i) => (
-                <ScrollStaggerItem key={t} index={i} total={STEPS.length} className="relative">
-                  <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3, ease: EASE }}>
-                    <motion.span
-                      whileHover={{ scale: 1.12, rotate: 8 }}
-                      transition={{ duration: 0.3, ease: EASE }}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-primary-foreground/60 bg-white/10 text-[11px] font-semibold backdrop-blur-sm"
-                    >
-                      0{i + 1}
-                    </motion.span>
-                    <Icon className="mt-5 h-5 w-5" strokeWidth={1.5} />
-                    <h3 className="mt-3 font-sans text-[13px] font-bold">{t}</h3>
-                    <p className="mt-1.5 text-[11px] leading-relaxed text-primary-foreground/75">
-                      {d}
-                    </p>
-                  </motion.div>
-                </ScrollStaggerItem>
-              ))}
-            </ScrollStagger>
+          <div className="mx-auto w-full max-w-4xl px-6 py-20 text-center">
+            <Eyebrow n="03" light center>
+              Como participar
+            </Eyebrow>
+            <SplitTitle
+              className="text-5xl text-primary-foreground md:text-6xl"
+              segments={[{ t: "Fazer parte\ncomeça com\n" }, { t: "um gesto.", em: true }]}
+            />
+            <ScrollReveal>
+              <p className="mx-auto mt-7 max-w-lg text-[15px] leading-relaxed text-primary-foreground/75">
+                O manual completo de orientação — introdução, justificativa e o passo a passo em 17
+                etapas — está disponível em uma página dedicada.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal>
+              <motion.a
+                href={withBase("/como-participar")}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className="mt-9 inline-flex items-center gap-2 rounded-md bg-background px-6 py-3.5 text-xs font-bold text-primary"
+              >
+                Quero saber como participar <ArrowRight size={14} />
+              </motion.a>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -357,7 +329,7 @@ function Index() {
         {/* 05 Doar */}
         <section
           id="doar"
-          className="relative mx-auto grid min-h-[31vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_0.9fr_1fr]"
+          className="relative mx-auto grid min-h-[45vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_0.9fr_1fr]"
         >
           <SectionBg slice="s05" />
           <div>
@@ -452,7 +424,7 @@ function Index() {
         </section>
 
         {/* 06 Contato */}
-        <section id="contato" className="relative flex min-h-[31vw] items-center">
+        <section id="contato" className="relative flex min-h-[45vw] items-center">
           <SectionBg slice="s06" />
           <div className="relative mx-auto w-full max-w-6xl px-6 pt-20 pb-16">
             <ParallaxBox distance={30}>
