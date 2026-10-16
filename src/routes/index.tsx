@@ -8,6 +8,7 @@ import {
   Sprout,
   Sunrise,
   Copy,
+  Check,
   Instagram,
   Youtube,
   Facebook,
@@ -66,10 +67,18 @@ const SYMBOLS: Array<[LucideIcon, string, string]> = [
   ],
 ];
 
-const AMOUNTS = ["R$ 25", "R$ 50", "R$ 100", "Outro valor"];
-
 function Index() {
-  const [amount, setAmount] = useState("R$ 25");
+  const [copied, setCopied] = useState(false);
+
+  const copyPix = async () => {
+    try {
+      await navigator.clipboard.writeText("11987612710");
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   /* Hero afunda e desvanece ao rolar (só transform+opacity, barato). */
   const heroRef = useRef<HTMLElement>(null);
@@ -325,7 +334,7 @@ function Index() {
         {/* 05 Doar */}
         <section
           id="doar"
-          className="relative mx-auto grid min-h-[45vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_0.9fr_1fr]"
+          className="relative mx-auto grid min-h-[45vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_1.4fr]"
         >
           <div>
             <Eyebrow n="05">Ajude a levar esperança</Eyebrow>
@@ -336,38 +345,8 @@ function Index() {
             <ScrollReveal>
               <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-muted-foreground">
                 Seu apoio pode ajudar na aquisição de roupões e nos materiais utilizados nas ações
-                missionárias do projeto.
+                missionárias do projeto. Contribua com qualquer valor pela chave Pix abaixo.
               </p>
-            </ScrollReveal>
-            <ScrollReveal>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {AMOUNTS.map((v) => {
-                  const active = v === amount;
-                  return (
-                    <motion.button
-                      key={v}
-                      onClick={() => setAmount(v)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.94 }}
-                      transition={{ duration: 0.25, ease: EASE }}
-                      className={`relative rounded-md px-4 py-2 text-[11px] font-semibold transition-colors duration-300 ${
-                        active
-                          ? "text-primary-foreground"
-                          : "border border-primary bg-transparent text-primary hover:bg-primary/10"
-                      }`}
-                    >
-                      {active && (
-                        <motion.span
-                          layoutId="amount-pill"
-                          transition={{ duration: 0.45, ease: EASE }}
-                          className="absolute inset-0 rounded-md bg-primary"
-                        />
-                      )}
-                      <span className="relative z-10">{v}</span>
-                    </motion.button>
-                  );
-                })}
-              </div>
             </ScrollReveal>
           </div>
           <ScrollScale
@@ -375,47 +354,36 @@ function Index() {
             className="hidden w-px origin-top self-stretch bg-primary/25 md:block"
           />
           <ScrollReveal>
-            <motion.div
-              whileHover={{ scale: 1.04, rotate: -1 }}
-              transition={{ duration: 0.35, ease: EASE }}
-              className="mx-auto w-fit text-center"
-            >
-              <div className="mx-auto grid h-44 w-44 grid-cols-6 gap-1 rounded-xl border border-border bg-white/95 p-3 shadow-sm">
-                {Array.from({ length: 36 }).map((_, i) => (
-                  <span key={i} className={(i * 7) % 3 ? "bg-foreground" : ""} />
-                ))}
+            <div className="rounded-2xl border border-border bg-white/85 p-6 shadow-[0_15px_45px_-25px_rgba(120,20,20,0.45)] backdrop-blur-sm md:p-7">
+              <p className="text-[11px] font-bold tracking-[0.2em] text-primary uppercase">
+                Chave Pix — telefone
+              </p>
+              <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-primary/[0.06] px-4 py-3.5">
+                <span className="font-serif text-2xl tracking-wide md:text-[1.7rem]">
+                  (11) 98761-2710
+                </span>
+                <motion.button
+                  onClick={copyPix}
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.25, ease: EASE }}
+                  aria-label="Copiar chave Pix"
+                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"
+                >
+                  {copied ? <Check size={16} /> : <Copy size={16} />}
+                </motion.button>
               </div>
-              <p className="mt-3 text-[11px] leading-snug font-medium">
-                QR Code Pix oficial
-                <br />
-                será disponibilizado aqui.
+              <p className="mt-2 text-[11px] font-semibold text-muted-foreground">
+                {copied ? "Chave copiada!" : "Toque no botão para copiar a chave."}
               </p>
-            </motion.div>
+              <div className="mt-5 border-t border-border pt-4">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-primary uppercase">
+                  Beneficiário
+                </p>
+                <p className="mt-1.5 font-serif text-xl">Marcos Camilo da Silva</p>
+              </div>
+            </div>
           </ScrollReveal>
-          <ScrollStagger>
-            <ScrollStaggerItem index={0} total={3} y={20}>
-              <p className="block text-[11px] font-bold uppercase tracking-wider">
-                Chave Pix
-                <span className="mt-1.5 flex items-center justify-between rounded-md bg-muted/80 px-3 py-2.5 font-normal normal-case text-muted-foreground">
-                  Será disponibilizada aqui <Copy size={13} className="text-primary" />
-                </span>
-              </p>
-            </ScrollStaggerItem>
-            <ScrollStaggerItem index={1} total={3} y={20}>
-              <p className="block text-[11px] font-bold uppercase tracking-wider">
-                Beneficiário
-                <span className="mt-1.5 block rounded-md border border-border bg-white/70 px-3 py-2.5 font-normal normal-case text-muted-foreground">
-                  Nome será exibido aqui
-                </span>
-              </p>
-            </ScrollStaggerItem>
-            <ScrollStaggerItem index={2} total={3} y={16}>
-              <p className="text-[10px] leading-relaxed text-muted-foreground">
-                Esta é uma versão de protótipo. Os dados de pagamento serão adicionados após
-                validação da equipe responsável.
-              </p>
-            </ScrollStaggerItem>
-          </ScrollStagger>
         </section>
 
         {/* 06 Contato */}
