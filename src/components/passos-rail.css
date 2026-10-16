@@ -40,41 +40,6 @@
   }
 }
 
-/* Janela de 1em sobre a tira de glifos; o glifo invisível mantém a base */
-.pr-col {
-  position: relative;
-  display: inline-block;
-  overflow: clip;
-  width: 0.7em;
-  height: 1em;
-  line-height: 1;
-  vertical-align: baseline;
-}
-
-.pr-col::before {
-  content: "0";
-  visibility: hidden;
-}
-
-.pr-strip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  will-change: transform;
-}
-
-.pr-glyph {
-  display: block;
-  height: 1em;
-  line-height: 1;
-  text-align: center;
-}
-
-.pr-num {
-  font-variant-numeric: tabular-nums;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .pr-bead,
   .pr-strip {
