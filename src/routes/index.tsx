@@ -261,7 +261,7 @@ function Index() {
           id="participar"
           className="on-red relative flex min-h-[51vw] items-center text-primary-foreground"
         >
-          <SectionBg slice="s03" cover />
+          <SectionBg slice="s03" />
           <div className="mx-auto w-full max-w-4xl px-6 py-20 text-center">
             <Eyebrow n="03" light center>
               Como participar
@@ -297,7 +297,7 @@ function Index() {
           id="historias"
           className="relative flex min-h-[58vw] w-full flex-col justify-center"
         >
-          <SectionBg slice="s04" cover />
+          <SectionBg slice="s04" />
           <div className="mx-auto max-w-3xl px-6 pt-24 pb-12 text-center">
             <Eyebrow n="04" center>
               Histórias que inspiram
@@ -333,7 +333,7 @@ function Index() {
           id="doar"
           className="relative mx-auto grid min-h-[31vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_0.9fr_1fr]"
         >
-          <SectionBg slice="s05" cover />
+          <SectionBg slice="s05" />
           <div>
             <Eyebrow n="05">Ajude a levar esperança</Eyebrow>
             <SplitTitle
@@ -470,7 +470,7 @@ function Index() {
         </section>
 
         <footer className="relative mx-auto flex min-h-[20vw] w-full max-w-6xl flex-col justify-end px-6 py-8">
-          <SectionBg slice="footer" cover />
+          <SectionBg slice="footer" />
           <ScrollReveal y={20}>
             <div className="flex flex-wrap items-center justify-between gap-6 border-b border-border pb-8">
               <Logo />

@@ -146,12 +146,12 @@ function PageHeader() {
 function ComoParticipar() {
   return (
     <main className="relative overflow-hidden bg-[#faf7f2]">
-      {/* Fundo claro com ondas e traços vermelhos, proporção travada */}
+      {/* Fundo claro com ondas e traços vermelhos em tela cheia */}
       <img
         src={fundo2}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-auto w-full [mask-image:linear-gradient(to_bottom,black_80%,transparent)]"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center md:object-fill"
       />
       {/* Véu branco (20%) sobre o fundo, só nesta página */}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-white/20" />
