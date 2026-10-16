@@ -257,7 +257,7 @@ function Index() {
         {/* 03 Participar */}
         <section
           id="participar"
-          className="on-red relative flex min-h-[45vw] items-center bg-[#7C0B05] text-primary-foreground"
+          className="on-red relative flex min-h-[45vw] items-center text-primary-foreground"
         >
           <div className="mx-auto w-full max-w-4xl px-6 py-20 text-center">
             <Eyebrow n="03" light center>

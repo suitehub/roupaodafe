@@ -3,17 +3,19 @@ import { EASE } from "./scroll-effects";
 import logoPng from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
 
-import bgHero from "@/assets/bg-hero.jpg";
-import bgHistoria from "@/assets/bg-historia.jpg";
-import bgSimbolo from "@/assets/bg-simbolo.jpg";
-import bgOnda from "@/assets/bg-onda.jpg";
-import bgTransicao from "@/assets/bg-transicao.jpg";
-import bgContato from "@/assets/bg-contato.jpg";
+import bg1 from "@/assets/bg1.jpg";
+import bg2 from "@/assets/bg2.jpg";
+import bg3 from "@/assets/bg3.jpg";
+import bg4 from "@/assets/bg4.jpg";
+import bg5 from "@/assets/bg5.jpg";
+import bg6 from "@/assets/bg6.jpg";
 
-/* Fundo global: as 6 peças empilhadas coladas, uma embaixo da outra,
- * no tamanho exato e sem alterar proporções (w-full h-auto, block).
- * As seções são transparentes e assentam sobre as faixas. */
-const BANDS = [bgHero, bgHistoria, bgSimbolo, bgOnda, bgTransicao, bgContato];
+/* Fundo global: as peças empilhadas coladas, uma embaixo da outra, na ordem
+ * do design (bg1 hero · bg2 história · bg3 símbolo · bg4 participar ·
+ * bg5 histórias + doar · bg6 contato), tamanho exato e sem alterar
+ * proporções (w-full h-auto, block). As seções transparentes assentam
+ * sobre as faixas. */
+const BANDS = [bg1, bg2, bg3, bg4, bg5, bg5, bg6];
 
 export function HomeBackground() {
   return (
