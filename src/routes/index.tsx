@@ -13,7 +13,7 @@ import {
   Facebook,
   type LucideIcon,
 } from "lucide-react";
-import { Eyebrow, Logo, SectionBg } from "@/components/site-chrome";
+import { Eyebrow, HomeBackground, Logo } from "@/components/site-chrome";
 import { withBase } from "@/lib/base";
 import { StoriesCarousel } from "@/components/stories-carousel";
 import {
@@ -82,6 +82,7 @@ function Index() {
 
   return (
     <main className="relative overflow-hidden bg-[#faf7f2]">
+      <HomeBackground />
       <div className="relative z-10">
         {/* Header */}
         <ScrollHeader className="absolute inset-x-0 top-0 z-20">
@@ -127,7 +128,6 @@ function Index() {
 
         {/* Hero */}
         <section id="inicio" ref={heroRef} className="relative min-h-[45vw]">
-          <SectionBg slice="hero" />
           <motion.div
             style={{ y: heroY, opacity: heroOpacity }}
             className="relative mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-36"
@@ -186,7 +186,6 @@ function Index() {
 
         {/* 01 História */}
         <section id="projeto" className="relative min-h-[45vw]">
-          <SectionBg slice="s01" />
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pt-24 pb-20 md:grid-cols-[1fr_1fr]">
             <ParallaxBox distance={36}>
               <Eyebrow n="01">A história</Eyebrow>
@@ -223,7 +222,6 @@ function Index() {
 
         {/* 02 Símbolo */}
         <section className="relative min-h-[45vw]">
-          <SectionBg slice="s02" />
           <div className="mx-auto max-w-6xl px-6 pt-16 pb-16">
             <Eyebrow n="02">Um símbolo. Uma nova possibilidade.</Eyebrow>
             <SplitTitle
@@ -261,7 +259,6 @@ function Index() {
           id="participar"
           className="on-red relative flex min-h-[45vw] items-center bg-[#7C0B05] text-primary-foreground"
         >
-          <SectionBg slice="s03" />
           <div className="mx-auto w-full max-w-4xl px-6 py-20 text-center">
             <Eyebrow n="03" light center>
               Como participar
@@ -297,7 +294,6 @@ function Index() {
           id="historias"
           className="relative flex min-h-[58vw] w-full flex-col justify-center"
         >
-          <SectionBg slice="s04" />
           <div className="mx-auto w-full max-w-6xl px-6 pt-24 pb-12">
             <Eyebrow n="04">Histórias que inspiram</Eyebrow>
             <SplitTitle
@@ -331,7 +327,6 @@ function Index() {
           id="doar"
           className="relative mx-auto grid min-h-[45vw] w-full max-w-6xl items-start gap-12 px-6 pt-20 pb-14 md:grid-cols-[1.1fr_auto_0.9fr_1fr]"
         >
-          <SectionBg slice="s05" />
           <div>
             <Eyebrow n="05">Ajude a levar esperança</Eyebrow>
             <SplitTitle
@@ -425,7 +420,6 @@ function Index() {
 
         {/* 06 Contato */}
         <section id="contato" className="relative flex min-h-[45vw] items-center">
-          <SectionBg slice="s06" />
           <div className="relative mx-auto w-full max-w-6xl px-6 pt-20 pb-16">
             <ParallaxBox distance={30}>
               <Eyebrow n="06">Contato e participação</Eyebrow>

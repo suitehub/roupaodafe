@@ -3,47 +3,24 @@ import { EASE } from "./scroll-effects";
 import logoPng from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
 
-const sliceModules = import.meta.glob<string>("../assets/bg-*.jpg", {
-  eager: true,
-  query: "?url",
-  import: "default",
-});
+import bgHero from "@/assets/bg-hero.jpg";
+import bgHistoria from "@/assets/bg-historia.jpg";
+import bgSimbolo from "@/assets/bg-simbolo.jpg";
+import bgOnda from "@/assets/bg-onda.jpg";
+import bgTransicao from "@/assets/bg-transicao.jpg";
+import bgContato from "@/assets/bg-contato.jpg";
 
-const LAYERS: Record<string, string> = {};
-for (const [path, url] of Object.entries(sliceModules)) {
-  const m = path.match(/bg-(.+)\.jpg$/);
-  const key = m?.[1];
-  if (key) LAYERS[key] = url;
-}
+/* Fundo global: as 6 peças empilhadas coladas, uma embaixo da outra,
+ * no tamanho exato e sem alterar proporções (w-full h-auto, block).
+ * As seções são transparentes e assentam sobre as faixas. */
+const BANDS = [bgHero, bgHistoria, bgSimbolo, bgOnda, bgTransicao, bgContato];
 
-/* Camada do fundo → seção (ordem de cima para baixo, definida pelo design):
- * hero · historia · simbolo · onda (faixa azul-marinho) ·
- * transicao (04 + 05) · contato. Rodapé fica no creme.
- * A peça nunca é redimensionada: largura cheia, altura natural, fundida
- * na base creme. `cover` = estica até cobrir (só para a onda escura,
- * onde a distorção é invisível e o texto branco precisa de fundo total). */
-export type BgLayer = "hero" | "s01" | "s02" | "s03" | "s04" | "s05" | "s06";
-
-const LAYER_FILE: Record<BgLayer, string> = {
-  hero: "hero",
-  s01: "historia",
-  s02: "simbolo",
-  s03: "onda",
-  s04: "transicao",
-  s05: "transicao",
-  s06: "contato",
-};
-
-/*
- * Faixa do fundo no topo da seção, tamanho exato e sem alterar proporções
- * (w-full h-auto, uma embaixo da outra). `-z-10` mantém atrás do conteúdo.
- */
-export function SectionBg({ slice }: { slice: BgLayer }) {
-  const src = LAYERS[LAYER_FILE[slice]];
-  if (!src) return null;
+export function HomeBackground() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10">
-      <img src={src} alt="" className="h-auto w-full" />
+      {BANDS.map((src, i) => (
+        <img key={i} src={src} alt="" className="block h-auto w-full" />
+      ))}
     </div>
   );
 }
