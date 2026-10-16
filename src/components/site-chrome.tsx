@@ -34,17 +34,30 @@ const LAYER_FILE: Record<BgLayer, string> = {
 };
 
 /*
- * Faixa do fundo colada na seção: o alinhamento vira estrutural
- * (vale para qualquer altura de conteúdo, desktop e celular).
- * `-z-10` mantém a imagem sempre atrás do conteúdo, sem exigir
- * `relative` nos blocos de texto.
+ * Faixa do fundo no topo da seção, SEMPRE na proporção natural (w-full h-auto):
+ * nunca achata nem estica, em qualquer dispositivo. O resto da seção usa o
+ * creme de base e a máscara funde a borda da faixa para não marcar linha.
+ * `cover` = estica até cobrir a seção (só para faixas lisas — vermelho e
+ * branco — onde a distorção é invisível, garantindo texto branco legível).
+ * `-z-10` mantém a imagem sempre atrás do conteúdo.
  */
-export function SectionBg({ slice }: { slice: BgLayer }) {
+export function SectionBg({ slice, cover = false }: { slice: BgLayer; cover?: boolean }) {
   const src = LAYERS[LAYER_FILE[slice]];
   if (!src) return null;
+  if (cover) {
+    return (
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <img src={src} alt="" className="h-full w-full object-fill" />
+      </div>
+    );
+  }
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-      <img src={src} alt="" className="h-full w-full object-fill" />
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10">
+      <img
+        src={src}
+        alt=""
+        className="h-auto w-full [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_80%,transparent)]"
+      />
     </div>
   );
 }
